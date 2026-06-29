@@ -28,12 +28,14 @@ version_file = "tzrec/version.py"
 
 def get_version():
     """Get TorchEasyRec version."""
+    version_dict = {}
     with codecs.open(version_file, "r") as f:
-        exec(compile(f.read(), version_file, "exec"))
+        exec(compile(f.read(), version_file, "exec"), version_dict)
     if "NIGHTLY_VERSION" in os.environ:
-        return f"{locals()['__version__']}+{os.environ['NIGHTLY_VERSION']}"
+        nightly_ver = os.environ["NIGHTLY_VERSION"]
+        return f"{version_dict['__version__']}+{nightly_ver}"
     else:
-        return locals()["__version__"]
+        return version_dict["__version__"]
 
 
 def parse_requirements(fname="requirements.txt"):
@@ -66,6 +68,7 @@ setup(
     version=get_version(),
     description="An easy-to-use framework for Recommendation",
     long_description=readme(),
+    long_description_content_type="text/markdown",
     author="EasyRec Team",
     author_email="easy_rec@alibaba-inc.com",
     url="http://gitlab.alibaba-inc.com/pai_biz_arch/TorchEasyRec",
