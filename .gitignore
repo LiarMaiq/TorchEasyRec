@@ -52,3 +52,6 @@ data/test/kuairand-mot-1k*
 tmp/
 docker/requirements*
 experiments/
+server.py
+server_dssm.py
+SERVER_DSSM_USAGE.md
